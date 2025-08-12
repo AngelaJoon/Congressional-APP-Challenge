@@ -1,0 +1,38 @@
+{% extends "layout.html" %} {% block content %}
+<div class="container">
+  <div class="form-container border border-1 rounded mt-4 p-3">
+    <h1 class="display-6 text-center">Sign in to access editor</h1>
+    <form method="POST" action="{{ url_for('login') }}">
+      <div class="mb-3">
+        <label for="input-pw" class="form-label">Username</label>
+        <input
+          type="text"
+          class="form-control"
+          name="username"
+          placeholder="username"
+          id="input-username"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="input-pw" class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          name="password"
+          placeholder="password"
+          id="input-pw"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary mb-3">Submit</button>
+      {% if failed_login %}
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+         Incorrect username or password!
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+      {% endif %}
+
+    </form>
+  </div>
+</div>
+
+{% endblock %}
