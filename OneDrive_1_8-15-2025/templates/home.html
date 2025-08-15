@@ -1,0 +1,14 @@
+{% extends "layout.html" %} 
+
+{% block content %}
+<div class="container-fluid d-none d-sm-block" id="cover">
+    <h1 class="text-center display-1 blog-heading">A Wizard's Blog</h1>
+</div>
+<div class="container">
+  {% for post in posts %}
+  <a href="{{url_for('blog', post_id=post.post_id)}}">
+  <h2 class = "display-6">{{post.title}}</h2>
+</a>
+  {% endfor %}
+  </div>
+{% endblock %}
