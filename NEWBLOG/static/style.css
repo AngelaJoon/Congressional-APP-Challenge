@@ -1,15 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;700&display=swap');
 
+
 body {
   margin: 0px;
   font-family: 'Nunito Sans', sans-serif;
   background-image: url('pattern.png');
+  background-color: #f6f6f8;
 }
+
 
 .header-container {
   width: 100%;
   background-color: #2d3436;
 }
+
 
 .header-container > h1 {
   padding: 20px;
@@ -18,6 +22,8 @@ body {
   color: #F9DC5C;
   margin: 0;
 }
+
+
 
 
 .blog-post {
@@ -31,33 +37,40 @@ body {
   transition: 0.3s all ease;
 }
 
+
 .blog-post:hover {
   box-shadow: 1px 1px 1px #adadad;
 }
+
 
 a {
   text-decoration: none;
   color: #2d3436;
 }
 
+
 .back-link{
   text-decoration:underline;
   margin-bottom:10px;
 }
 
+
 img {
   max-width: 100%;
 }
+
 
 .post-meta {
   font-style: italic;
   font-weight: 300;
 }
 
+
 .error-header {
   width: 100%;
   background-color: #d63031;
 }
+
 
 .error-title {
   margin: 0;
@@ -66,10 +79,12 @@ img {
   text-align: center;
 }
 
+
 .post-container {
   margin-top: 40px;
   margin-bottom: 20px;
 }
+
 
 .about-container {
   width: 100%;
@@ -82,6 +97,7 @@ img {
   background-position: left;
 }
 
+
 .about-content {
   max-width: 500px;
   height: 200px;
@@ -89,31 +105,38 @@ img {
   right: 150px;
 }
 
+
 .post-container > p {
   text-align: center;
 }
 
+
 .blog-post > img {
   margin-bottom: 16px;
 }
+
 
 #editor {
   height: 250px;
   overflow-y: auto;
 }
 
+
 .post-title{
   padding-top:30px;
 }
+
 
 .form-signin {
   max-width: 330px;
   padding: 15px;
 }
 
+
 .form-signin .form-floating:focus-within {
   z-index: 2;
 }
+
 
 .form-signin input[type="email"] {
   margin-bottom: -1px;
@@ -121,17 +144,41 @@ img {
   border-bottom-left-radius: 0;
 }
 
+
 .form-signin input[type="password"] {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
 
+
 .date {
   font-size: 14px;
   color: #666666;
 }
 
+
 #disqus_thread {
   margin-top: 30px;
 }
+
+.pagination .page-link {
+  color: #2d3436;
+}
+
+
+.pagination .page-link:hover,
+.pagination .page-link:focus {
+  background-color: #bdd9d3;
+  border-color: #59827a;
+  color: #fff;
+}
+
+
+.page-item.active .page-link {
+  color: #fff;
+  background-color: #64b2a3;
+  border-color: #356b60;
+}
+
+
