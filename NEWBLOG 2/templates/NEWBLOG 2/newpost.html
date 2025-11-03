@@ -1,0 +1,213 @@
+{% extends "layout.html" %}
+{% set page_title="New Post" %}
+
+{% block content %}
+<div class="container p-3 mt-5 rounded bg-white">
+  <form action="{{actionRoute}}" method="POST" enctype="multipart/form-data">
+
+    {% if update %}
+      <input type="hidden" name="post-permalink" value="{{post_data['permalink']}}">
+      <input type="hidden" name="post-date" value="{{post_data['published_on']}}">
+      <input type="hidden" name="post-id" value="{{post_data['PostId']}}">
+    {% endif %}
+
+    <div class="mb-3">
+      <label>Title of Your Post</label>
+      <input type="text" placeholder="Title of your post" name="post-title" class="form-control" value="{{post_data['title']}}">
+    </div>
+
+    <style>
+      /* Base pill styling */
+      .rating-label {
+        display: inline-block;
+        padding: 6px 14px;
+        border-radius: 9999px;
+        border: 2px solid transparent;
+        font-weight: 600;
+        cursor: pointer;
+        user-select: none;
+        transition: background .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease;
+      }
+      .rating-input { position: absolute; opacity: 0; pointer-events: none; }
+      .rating-input + .rating-label { background: var(--bg, #eee); color: var(--text, #111); }
+      .rating-input + .rating-label:hover { background: var(--bg-hover, var(--bg)); }
+      .rating-input:checked + .rating-label {
+        background: var(--bg-active); color: var(--text-active, #fff);
+        border-color: var(--border-active, transparent);
+        box-shadow: 0 0 0 2px rgba(0,0,0,.06) inset;
+      }
+      .rating-input:focus-visible + .rating-label { outline: 3px solid #333; outline-offset: 2px; }
+      #very_safe + label { --bg:#e6f6ea; --bg-hover:#d3f0db; --bg-active:#2e7d32; --text:#1b5e20; --text-active:#fff; }
+      #safe + label { --bg:#e9fbe9; --bg-hover:#d9f6d9; --bg-active:#66bb6a; --text:#2e7d32; --text-active:#fff; }
+      #unclear + label { --bg:#fff7cc; --bg-hover:#ffef99; --bg-active:#fbc02d; --text:#7a5d00; --text-active:#000; }
+      #dangerous + label { --bg:#ffe2cc; --bg-hover:#ffcfaa; --bg-active:#f57c00; --text:#7a2e00; --text-active:#fff; }
+      #very_dangerous + label { --bg:#ffd6d6; --bg-hover:#ffb3b3; --bg-active:#d32f2f; --text:#7a0000; --text-active:#fff; }
+      .rating-row { margin: 6px 0; }
+    </style>
+
+    <div class="mb-3">
+      <label>Strain Index</label>
+      <div class="rating-row">
+        <input class="rating-input" type="radio" id="very_safe" name="rating" value="Very Safe"
+               {% if post_data['rating'] == 'Very Safe' %}checked{% endif %}>
+        <label class="rating-label" for="very_safe">Very Safe</label>
+      </div>
+      <div class="rating-row">
+        <input class="rating-input" type="radio" id="safe" name="rating" value="Safe"
+               {% if post_data['rating'] == 'Safe' %}checked{% endif %}>
+        <label class="rating-label" for="safe">Safe</label>
+      </div>
+      <div class="rating-row">
+        <input class="rating-input" type="radio" id="unclear" name="rating" value="Unclear"
+               {% if post_data['rating'] == 'Unclear' or not post_data['rating'] %}checked{% endif %}>
+        <label class="rating-label" for="unclear">Unclear</label>
+      </div>
+      <div class="rating-row">
+        <input class="rating-input" type="radio" id="dangerous" name="rating" value="Dangerous"
+               {% if post_data['rating'] == 'Dangerous' %}checked{% endif %}>
+        <label class="rating-label" for="dangerous">Dangerous</label>
+      </div>
+      <div class="rating-row">
+        <input class="rating-input" type="radio" id="very_dangerous" name="rating" value="Very Dangerous"
+               {% if post_data['rating'] == 'Very Dangerous' %}checked{% endif %}>
+        <label class="rating-label" for="very_dangerous">Very Dangerous</label>
+      </div>
+    </div>
+
+    <!-- TAGS -->
+    <div class="mb-3">
+      <label>Tags</label>
+      <input type="text" placeholder="Post tags" name="post-tags" class="form-control" value="{{post_data['tags']}}">
+    </div>
+
+    <!-- IMAGE UPLOAD -->
+    <div class="mb-3">
+      <label>Image</label>
+      {% if 'image' in post_data and post_data['image'] %}
+        <div class="mb-2">
+          <img src="{{ post_data['image'] }}" alt="Post Image" width="300">
+          <input type="hidden" name="existing-image" value="{{ post_data['image'] }}">
+        </div>
+      {% endif %}
+      <input type="file" name="image" accept="image/*">
+    </div>
+
+    <!-- AUTHOR -->
+    <div class="mb-3">
+      <label>Post Author</label>
+      <input type="text" placeholder="Author name" name="post-author" class="form-control" value="{{post_data['author']}}">
+    </div>
+
+    <!-- ADDRESS + MAP -->
+    <div class="mb-3">
+      <label>Address (Location)</label>
+      <div class="input-group">
+        <input
+          type="text"
+          name="address"
+          id="address"
+          class="form-control"
+          placeholder="123 Main St, City, State"
+          value="{{ post_data['Address'] if 'Address' in post_data else post_data['address'] if 'address' in post_data else '' }}"
+        >
+        <button type="button" id="lookup" class="btn btn-outline-secondary">Find on Map</button>
+      </div>
+      <input type="hidden" name="latitude" id="latitude" value="{{ post_data['Latitude'] if 'Latitude' in post_data else post_data['latitude'] if 'latitude' in post_data else '' }}">
+      <input type="hidden" name="longitude" id="longitude" value="{{ post_data['Longitude'] if 'Longitude' in post_data else post_data['longitude'] if 'longitude' in post_data else '' }}">
+    </div>
+
+    <div class="mb-3">
+      <label>Location Preview</label>
+      <div id="map" style="height: 320px; border-radius: 8px;"></div>
+    </div>
+
+    <!-- CONTENT (plain textarea; no Quill) -->
+    <div class="mb-3">
+      <label>Content</label>
+      <!-- If post_data['content'] contains HTML, it will appear as literal text here (intended for raw HTML editing). -->
+      <textarea id="post-content" name="post-content" class="form-control" rows="10">{{ post_data['content']|default('') }}</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-secondary mt-3">
+      {% if update %}Update{% else %}Publish{% endif %}
+    </button>
+  </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+  <!-- Leaflet map + geocoding -->
+  <script>
+    (function () {
+      function start() {
+        const mapEl = document.getElementById('map');
+        if (!mapEl) { console.warn('[Map] #map not found'); return; }
+
+        if (!window.L) {
+          console.warn('[Map] Leaflet not ready, retrying…');
+          return setTimeout(start, 50);
+        }
+
+        const map = L.map('map');
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        let marker = null;
+        function setMap(lat, lng, label) {
+          const ll = [lat, lng];
+          if (!map._loaded) map.setView(ll, 15); else map.panTo(ll);
+          if (marker) marker.remove();
+          marker = L.marker(ll).addTo(map);
+          if (label) marker.bindPopup(label).openPopup();
+        }
+
+        // Boot
+        (function boot() {
+          const lat = parseFloat(document.getElementById('latitude').value);
+          const lng = parseFloat(document.getElementById('longitude').value);
+          const addr = document.getElementById('address').value;
+          if (!isNaN(lat) && !isNaN(lng)) {
+            setMap(lat, lng, addr || 'Selected location');
+          } else {
+            map.setView([37.773972, -122.431297], 11);
+          }
+        })();
+
+        // Click handler
+        const lookupBtn = document.getElementById('lookup');
+        if (!lookupBtn) { console.warn('[Map] #lookup not found'); return; }
+
+        lookupBtn.addEventListener('click', async () => {
+          const addrEl = document.getElementById('address');
+          const q = addrEl ? addrEl.value.trim() : '';
+          if (!q) { alert('Please enter an address first.'); return; }
+
+          try {
+            const res = await fetch(`/geocode?q=${encodeURIComponent(q)}`);
+            const data = await res.json().catch(() => ({}));
+
+            if (!res.ok || data.error || typeof data.lat !== 'number' || typeof data.lng !== 'number') {
+              alert('No results found for that address.');
+              return;
+            }
+
+            document.getElementById('latitude').value = data.lat;
+            document.getElementById('longitude').value = data.lng;
+            addrEl.value = data.address || q;
+            setMap(data.lat, data.lng, data.address || 'Selected location');
+          } catch (e) {
+            console.error('[Geocode] error', e);
+            alert('Geocoding failed. Try again.');
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', start);
+      } else {
+        start();
+      }
+    })();
+  </script>
+{% endblock %}

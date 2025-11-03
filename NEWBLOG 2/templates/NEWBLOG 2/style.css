@@ -1,0 +1,388 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;700&display=swap');
+
+
+
+
+body {
+  margin: 0px;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  background-image: url('pattern.png');
+  background-color: #f6f6f8;
+}
+
+
+
+
+.header-container {
+  width: 100%;
+  background-color: #202226;
+}
+
+
+
+
+.header-container > h1 {
+  padding: 20px;
+  text-align: center;
+  font-weight: 700;
+  color: #F9DC5C;
+  margin: 0;
+}
+
+
+
+
+
+
+.blog-post {
+  max-width:800px;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #adadad;
+  background-color: white;
+  transition: 0.3s all ease;
+}
+
+
+
+
+.blog-post:hover {
+  box-shadow: 1px 1px 1px #adadad;
+}
+
+
+
+
+a {
+  text-decoration: none;
+  color: #202226;
+}
+
+
+
+
+.back-link{
+  text-decoration:underline;
+  margin-bottom:10px;
+}
+
+
+
+
+img {
+  max-width: 100%;
+}
+
+
+
+
+.post-meta {
+  font-style: italic;
+  font-weight: 300;
+}
+
+
+
+
+.error-header {
+  width: 100%;
+  background-color: #d63031;
+}
+
+
+
+
+.error-title {
+  margin: 0;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+
+
+
+.post-container {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+
+
+
+.about-container {
+  width: 100%;
+  height: 80%;
+  position: absolute;
+  bottom: 0;
+  background-image: url('about.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: left;
+}
+
+
+
+
+.about-content {
+  max-width: 500px;
+  height: 200px;
+  position: absolute;
+  right: 150px;
+}
+
+
+
+
+.post-container > p {
+  text-align: center;
+
+}
+
+
+
+
+.blog-post > img {
+  margin-bottom: 16px;
+}
+
+
+
+
+#editor {
+  height: 250px;
+  overflow-y: auto;
+}
+
+
+
+
+.post-title{
+  padding-top:30px;
+}
+
+
+
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+}
+
+
+
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+
+
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+
+
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+
+
+
+.date {
+  font-size: 14px;
+  color: #666666;
+}
+
+
+
+
+#disqus_thread {
+  margin-top: 30px;
+}
+
+
+.carousel-inner {
+  position: relative;
+}
+
+
+.carousel-inner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(0,0,0,0.2),
+    rgba(0,0,0,0.2)
+  );
+
+
+  pointer-events: none;
+  z-index: 2;
+}
+
+.carousel-overlay {
+  position: absolute;
+  top: 180px;
+  left: 60px;
+  transform: none;
+  z-index: 10;
+  text-align: left;
+  color: white;
+  font-size: 3.6vw !important;
+  font-weight: bold;
+  
+}
+
+
+
+.carousel-item img {
+  position: relative;
+  z-index: 1;
+}
+
+.love {
+  color: #F9DC5C;
+}
+
+
+.navbar-custom {
+  background-color: #202226; /* pick your red */
+}
+.navbar-custom .navbar-brand span,
+.navbar-custom .nav-link,
+.navbar-custom .btn {
+  height: 90px; /* or any value you like */
+  padding-top: 25px;
+  padding-bottom: 30px;
+  font-size: 28px;
+  color: white; /* make text/icons visible */
+}
+
+/*pagination stuff*/
+.pagination .page-link {
+  color: #2d3436;
+}
+
+
+.pagination .page-link:hover,
+.pagination .page-link:focus {
+  background-color: #bdd9d3;
+  border-color: #59827a;
+  color: #fff;
+}
+
+
+.page-item.active .page-link {
+  color: #fff;
+  background-color: #64b2a3;
+}
+
+
+.input-group{
+  width: 400px;
+  height: 55px;
+  padding-right: 40px;
+}
+
+.logout-btn {
+  background-color: #F9DC5C;
+  border-radius: 10px;
+  
+  padding: 0px 20px;            /* Equal vertical space */
+  font-size: 20px;               /* Smaller font size */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #202226 !important;
+  text-decoration: none;
+  cursor: pointer;
+  line-height: 1;              /* Keeps vertical alignment tidy */
+  margin-right: 35px;
+  height: 50px !important;
+}
+
+.welcome-btn {
+  color: #64b2a3;
+}
+
+.about {
+  text-align: center;
+  padding: 70px;
+  margin: auto;
+  background-color: #f6f6f8 !important;
+  width: 100%;
+  font-size: 3.6vw !important;
+}
+
+.paragraph {
+  font-size: 37px;
+  text-align: left;
+  font-weight: 100;
+}
+
+.get-started {
+  background-color: #F9DC5C;
+  color: #202226 !important;
+  padding: 12px 24px;
+  border-radius: 10px;
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: none;
+  font-size: 1.5vw;
+}
+
+.info {
+  padding: 20px;
+  margin: auto;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  text-align: center;
+}
+
+
+#info-title{
+  text-align: center;
+  padding: 20px;
+}
+
+
+.blockquote {
+   position: relative;
+   top: 100px;
+   font-style: italic;
+   font-size: 3.0vw !important;
+   margin-right: 20px;
+   font-weight: normal;
+}
+
+
+.footer {
+  position: relative;
+  top: 150px;
+  font-size: 3.0vw !important;
+}
+
+
+#btnhow-can-you-help {
+   position: relative;
+   top: 120px;
+}
+
